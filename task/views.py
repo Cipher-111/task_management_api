@@ -13,9 +13,11 @@ class TaskViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        # Return only tasks belonging to the authenticated user
         return Task.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
+        # Automatically assign the logged-in user to the task
         serializer.save(user=self.request.user)
 
     @action(detail=True, methods=['post'])
