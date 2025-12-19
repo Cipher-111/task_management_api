@@ -1,106 +1,132 @@
-# Task Management API
+Task Management API
+📌 Project Overview
 
-## Project Overview
-The Task Management API is a backend RESTful service built with Django and Django REST Framework.  
-It allows users to securely register, authenticate, and manage personal tasks.
+The Task Management API is a backend application built with Django REST Framework that allows users to create, manage, and track their tasks.
+Each user can securely create tasks, update them, mark them as completed or incomplete, and delete them when no longer needed.
 
-Each user can create, view, update, and delete their own tasks, as well as mark tasks as completed or incomplete.  
-The API follows REST best practices and demonstrates proper backend architecture, authentication, and database relationships.
+This project was built as a capstone project to demonstrate backend development skills, RESTful API design, authentication, and database relationships using Django.
 
-This project was developed as a backend capstone project to showcase skills in Django REST Framework, authentication, and API design.
+🚀 Features
 
----
+User authentication using Token-Based Authentication
 
-## Project Goals
-- Build a real-world backend API using Django REST Framework
-- Implement authentication and permissions
-- Design a clean relational database schema
-- Follow RESTful API conventions
-- Demonstrate proper Git and documentation practices
+Create, read, update, and delete tasks (CRUD)
 
----
+Mark tasks as completed or incomplete
 
-## Features
-- User registration and login
-- Token-based authentication
-- Create, read, update, and delete tasks
-- Tasks are user-specific and protected by permissions
-- Mark tasks as complete or incomplete
-- Clean and modular project structure
+Each user can only access their own tasks
 
----
+Task filtering using query parameters
 
-## Authentication & Authorization
-The API uses token-based authentication.
+Proper error handling and status codes
 
-- Users must register and log in to receive an authentication token
-- All task-related endpoints require authentication
-- Users can only access and modify their own tasks
+Clean and modular project structure
 
----
+🔐 Authentication
 
-## Database Design
-The application uses a relational database with the following core entities:
+This API uses Token Authentication.
 
-- User  
-  Represents registered users of the system
+After logging in, the user receives a token which must be included in the request headers for all protected endpoints.
 
-- Task  
-  Represents tasks created by users  
-  Each task belongs to a single user (One-to-Many relationship)
+Header format:
 
-This design ensures data integrity and security.
+Authorization: Token your_token_here
 
----
+🛠️ Technologies Used
 
-## API Overview
-The API provides endpoints for:
+Python
 
-- User registration and login
-- Task creation, retrieval, updating, and deletion
-- Marking tasks as completed or incomplete
+Django
 
-All endpoints follow RESTful conventions and return appropriate HTTP status codes.
+Django REST Framework
 
----
+SQLite (default Django database)
 
-## Technologies Used
-- Python
-- Django
-- Django REST Framework
-- SQLite (development database)
-- Git & GitHub for version control
+Git & GitHub
 
----
+⚙️ Installation & Setup
+1️⃣ Clone the Repository
+git clone https://github.com/Cipher-111/task_management_api
+cd task-management-api
 
-## Project Structure
-The project is organized into multiple Django apps:
+2️⃣ Create & Activate Virtual Environment
+python -m venv venv
+source venv/Scripts/activate   # Windows (Git Bash)
 
-- accounts – Handles user authentication and registration
-- tasks – Handles task management logic
-- docs – Contains planning documents and ERD diagrams
+3️⃣ Install Dependencies
+pip install django djangorestframework
 
-This structure improves readability, maintainability, and scalability.
+4️⃣ Run Migrations
+python manage.py makemigrations
+python manage.py migrate
 
----
+5️⃣ Create Superuser (Optional)
+python manage.py createsuperuser
 
-## Future Improvements
-- Add filtering and searching for tasks
-- Improve error handling and logging
-- Add API documentation using Swagger or Postman
-- Deploy the API to a cloud platform
+6️⃣ Run the Server
+python manage.py runserver
 
----
+📡 API Endpoints
+🔑 Authentication
+Method	Endpoint	Description
+POST	/auth/login/	Login and receive authentication token
+📝 Tasks
+Method	Endpoint	Description
+GET	/api/tasks/	List all tasks for the authenticated user
+POST	/api/tasks/	Create a new task
+GET	/api/tasks/{id}/	Retrieve a specific task
+PUT	/api/tasks/{id}/	Update a task
+DELETE	/api/tasks/{id}/	Delete a task
 
-## Testing
-API endpoints are tested using tools such as Postman to ensure correct behavior and authentication handling.
+✅ Custom Actions
+Method	Endpoint	Description
+POST	/api/tasks/{id}/complete/	Mark task as completed
+POST	/api/tasks/{id}/incomplete/	Mark task as incomplete
+🔍 Filtering (Query Parameters)
+Example	Description
+/api/tasks/?is_completed=true	Get completed tasks
+/api/tasks/?priority=high	Filter by priority
+🧪 Testing with cURL
+Create a Task
+curl -X POST http://127.0.0.1:8000/api/tasks/ \
+-H "Authorization: Token YOUR_TOKEN" \
+-H "Content-Type: application/json" \
+-d '{
+  "title": "My First Task",
+  "description": "Testing task creation",
+  "priority": "high",
+  "due_date": "2025-12-20"
+}'
 
----
+Mark Task as Completed
+curl -X POST http://127.0.0.1:8000/api/tasks/1/complete/ \
+-H "Authorization: Token YOUR_TOKEN"
 
-## Author
-This project was developed as part of a backend capstone project to demonstrate Django REST Framework skills.
+🗂️ Project Structure
+task_management_api/
+│
+├── accounts/        # Authentication logic
+├── task/            # Task management logic
+├── taskmanager/     # Project configuration
+├── venv/
+├── manage.py
+└── README.md
 
----
+🧠 Learning Outcomes
 
-## Project Status
-This project is currently in development.
+Building RESTful APIs using Django REST Framework
+
+Implementing token-based authentication
+
+Structuring Django projects using apps
+
+Using serializers, viewsets, routers, and permissions
+
+Testing APIs using cURL
+
+Version control using Git and GitHub
+
+📌 Author
+
+Sunday
+Backend Developer (Django)
